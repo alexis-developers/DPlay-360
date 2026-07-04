@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>KINETIC 360º | Experiência Imersiva</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Sora:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#99907c",
+                    "surface-tint": "#e9c349",
+                    "on-error-container": "#ffdad6",
+                    "on-error": "#690005",
+                    "inverse-primary": "#735c00",
+                    "tertiary-container": "#b4b2b2",
+                    "on-secondary-fixed": "#221b00",
+                    "surface-dim": "#131313",
+                    "outline-variant": "#4d4635",
+                    "surface-container-highest": "#353534",
+                    "primary": "#f2ca50",
+                    "on-surface": "#e5e2e1",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-primary-fixed-variant": "#574500",
+                    "on-primary-container": "#554300",
+                    "on-surface-variant": "#d0c5af",
+                    "secondary-container": "#534608",
+                    "on-tertiary-fixed": "#1c1b1b",
+                    "inverse-on-surface": "#313030",
+                    "surface-container-low": "#1c1b1b",
+                    "inverse-surface": "#e5e2e1",
+                    "secondary-fixed-dim": "#dac67d",
+                    "on-tertiary": "#313030",
+                    "tertiary-fixed-dim": "#c8c6c5",
+                    "secondary-fixed": "#f7e296",
+                    "primary-container": "#d4af37",
+                    "primary-fixed": "#ffe088",
+                    "surface-container": "#201f1f",
+                    "surface-bright": "#3a3939",
+                    "on-tertiary-container": "#454544",
+                    "on-primary-fixed": "#241a00",
+                    "secondary": "#dac67d",
+                    "on-secondary": "#3a3000",
+                    "on-secondary-container": "#c8b56d",
+                    "error-container": "#93000a",
+                    "error": "#ffb4ab",
+                    "primary-fixed-dim": "#e9c349",
+                    "tertiary-fixed": "#e5e2e1",
+                    "on-background": "#e5e2e1",
+                    "on-primary": "#3c2f00",
+                    "on-secondary-fixed-variant": "#534608",
+                    "surface": "#131313",
+                    "surface-container-high": "#2a2a2a",
+                    "tertiary": "#d0cdcd",
+                    "surface-variant": "#353534",
+                    "on-tertiary-fixed-variant": "#474746",
+                    "background": "#131313"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "stack-sm": "12px",
+                    "stack-lg": "48px",
+                    "stack-md": "24px",
+                    "unit": "8px",
+                    "margin-mobile": "16px",
+                    "container-max": "1280px",
+                    "margin-desktop": "64px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Sora"],
+                    "body-md": ["Sora"],
+                    "headline-md": ["Sora"],
+                    "headline-lg-mobile": ["Sora"],
+                    "headline-xl": ["Sora"],
+                    "body-lg": ["Sora"],
+                    "label-md": ["Sora"],
+                    "label-sm": ["Sora"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #e5e2e1;
+        }
+        .glass-card {
+            background: rgba(20, 20, 20, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glow-gold {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .btn-active:active {
+            transform: scale(0.95);
+            transition: transform 0.2s;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter py-4 bg-background/80 backdrop-blur-md border-b border-white/10 shadow-[0_0_20px_rgba(212,175,55,0.1)]">
+    <div class="font-headline-md text-headline-md font-bold text-surface-tint tracking-tighter">
+        D-PLAY 360
+    </div>
+    <div class="hidden md:flex items-center gap-8">
+        <a class="font-label-md text-label-md text-primary font-bold border-b-2 border-primary pb-1" href="#intro">Características</a>
+        <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#proprietarios">Proprietários</a>
+        <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#aplicacoes">Casos de Uso</a>
+        <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#galeria">Pacotes</a>
+        <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#contato">Contato</a>
+    </div>
+    <a href="#contato" class="bg-primary-container text-on-primary-fixed px-6 py-2 rounded-full font-label-md text-label-md font-bold hover:opacity-80 transition-opacity btn-active glow-gold flex items-center">
+        Alugue Agora
+    </a>
+</nav>
+
+<!-- Hero Section -->
+<header class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+    <!-- Background Video -->
+    <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-black/60 z-10"></div>
+        <video class="w-full h-full object-cover" autoplay loop muted playsinline>
+            <source src="Site_slow.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos em HTML5.
+        </video>
+    </div>
+    <div class="relative z-20 container mx-auto px-gutter text-center">
+        <h1 class="font-headline-xl text-headline-xl text-white mb-stack-md leading-tight animate-float">
+            Sua Experiência 360º <span class="text-primary-container text-glow">Exclusiva</span>
+        </h1>
+        <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-stack-lg">
+            Transforme seu evento com a tecnologia de vídeo imersiva mais sofisticada do mercado. Capturas cinematográficas e compartilhamento instantâneo.
+        </p>
+        <div class="flex flex-col md:flex-row items-center justify-center gap-stack-md">
+            <a class="w-full md:w-auto bg-primary-container text-on-primary-fixed px-8 py-4 rounded-xl font-headline-md text-headline-md flex items-center justify-center gap-2 hover:opacity-90 transition-all glow-gold btn-active" href="#contato">
+                Reservar Data <span class="material-symbols-outlined">event_available</span>
+            </a>
+            <a class="w-full md:w-auto border border-primary-container text-primary-container px-8 py-4 rounded-xl font-headline-md text-headline-md flex items-center justify-center gap-2 hover:bg-primary-container/10 transition-all btn-active" href="#intro">
+                Saiba Mais <span class="material-symbols-outlined">arrow_downward</span>
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- Intro Section -->
+<section class="py-stack-lg bg-background relative" id="intro">
+    <div class="container mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="relative">
+            <div class="absolute -top-10 -left-10 w-40 h-40 bg-primary-container/10 rounded-full blur-3xl"></div>
+            <div class="glass-card p-4 rounded-3xl relative z-10 overflow-hidden">
+                <img class="rounded-2xl w-full h-[500px] object-cover" data-alt="Plataforma de vídeo D-PLAY 360 em close detalhado com iluminação." src="imagens_extraidas/imagem_pag_4_1.jpeg"/>
+            </div>
+        </div>
+        <div>
+            <h2 class="font-headline-xl text-headline-xl mb-stack-md">Plataforma giratória para eventos premium</h2>
+            <p class="font-body-lg text-body-lg text-on-surface-variant mb-stack-lg">
+                Destaque-se com nossa plataforma de última geração. Com capacidade para até <span class="text-primary-container font-bold">3 pessoas</span> simultaneamente, garantimos diversão coletiva e registros dignos de tapete vermelho. Nossa iluminação personalizada cria efeitos visuais cinematográficos.
+            </p>
+            <div class="space-y-stack-md">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center text-primary-container">
+                        <span class="material-symbols-outlined">check_circle</span>
+                    </div>
+                    <span class="font-body-md text-body-md">Acabamento luxuoso e estrutura ultra-resistente.</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center text-primary-container">
+                        <span class="material-symbols-outlined">check_circle</span>
+                    </div>
+                    <span class="font-body-md text-body-md">Software de edição com filtros exclusivos.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Diferenciais -->
+<section class="py-stack-lg bg-surface-container-lowest">
+    <div class="container mx-auto px-gutter text-center mb-stack-lg">
+        <h2 class="font-headline-lg text-headline-lg text-white">Por que escolher a <span class="text-primary-container">D-PLAY 360?</span></h2>
+    </div>
+    <div class="container mx-auto px-gutter grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Diferencial 1 -->
+        <div class="glass-card p-8 rounded-3xl text-center flex flex-col items-center group hover:border-primary-container/50 transition-all">
+            <div class="w-20 h-20 rounded-2xl bg-primary-container/10 flex items-center justify-center mb-stack-md group-hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined text-primary-container text-4xl" data-weight="fill">workspace_premium</span>
+            </div>
+            <h3 class="font-headline-md text-headline-md mb-2">Qualidade Elite</h3>
+            <p class="font-body-md text-on-surface-variant">Equipamento de padrão internacional pronto para os eventos mais sofisticados e exigentes do Rio de Janeiro.</p>
+        </div>
+        <!-- Diferencial 2 -->
+        <div class="glass-card p-8 rounded-3xl text-center flex flex-col items-center group hover:border-primary-container/50 transition-all">
+            <div class="w-20 h-20 rounded-2xl bg-primary-container/10 flex items-center justify-center mb-stack-md group-hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined text-primary-container text-4xl" data-weight="fill">lightbulb</span>
+            </div>
+            <h3 class="font-headline-md text-headline-md mb-2">Iluminação Studio</h3>
+            <p class="font-body-md text-on-surface-variant">Cenografia de luz desenhada para valorizar os convidados e eliminar sombras indesejadas.</p>
+        </div>
+        <!-- Diferencial 3 -->
+        <div class="glass-card p-8 rounded-3xl text-center flex flex-col items-center group hover:border-primary-container/50 transition-all">
+            <div class="w-20 h-20 rounded-2xl bg-primary-container/10 flex items-center justify-center mb-stack-md group-hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined text-primary-container text-4xl" data-weight="fill">qr_code</span>
+            </div>
+            <h3 class="font-headline-md text-headline-md mb-2">Entrega Instantânea</h3>
+            <p class="font-body-md text-on-surface-variant">Vídeos com trilha sonora e efeitos profissionais entregues em menos de 30 segundos via QR Code.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Aplicações (Bento Grid) -->
+<section class="py-stack-lg bg-background" id="aplicacoes">
+    <div class="container mx-auto px-gutter mb-stack-lg">
+        <h2 class="font-headline-lg text-headline-lg mb-2">Ideal para Cenários <span class="text-primary-container">Exclusivos</span></h2>
+        <p class="font-body-md text-on-surface-variant">A versatilidade da nossa plataforma eleva o prestígio de qualquer ocasião.</p>
+    </div>
+    <div class="container mx-auto px-gutter grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 h-auto md:h-[800px]">
+        <!-- Card 1 -->
+        <div class="md:col-span-2 md:row-span-1 glass-card rounded-3xl relative overflow-hidden group">
+            <img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Plataforma de vídeo 360 em evento corporativo sofisticado ao ar livre com deck e piscina." src="imagens_extraidas/imagem_pag_6_1.jpeg"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-8">
+                <h4 class="font-headline-md text-headline-md text-white">Eventos Corporativos</h4>
+                <p class="text-on-surface-variant font-label-md">Fortaleça sua marca com sofisticação.</p>
+            </div>
+        </div>
+        <!-- Card 2 (Proprietários) -->
+        <div id="proprietarios" class="md:col-span-2 md:row-span-2 glass-card rounded-3xl relative overflow-hidden group">
+            <img class="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700" alt="Júlia e Wellington - Proprietários da D-PLAY 360" src="imagens_extraidas/proprietarios.jpg"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-8">
+                <h4 class="font-headline-md text-headline-md text-white">Júlia &amp; Wellington</h4>
+                <p class="text-on-surface-variant font-label-md">Proprietários da D-PLAY 360, este casal transforma cada evento em uma experiência inesquecível — com elegância, dedicação e paixão pelo que fazem.</p>
+            </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="md:col-span-1 md:row-span-1 glass-card rounded-3xl relative overflow-hidden group">
+            <img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Plataforma D-PLAY 360 montada em festa de 15 anos com decoração em neon e balões." src="imagens_extraidas/imagem_pag_3_2.jpeg"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
+                <h4 class="font-headline-md text-headline-md text-white text-[20px]">Ensaios de Moda</h4>
+            </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="md:col-span-1 md:row-span-1 glass-card rounded-3xl relative overflow-hidden group">
+            <img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Plataforma de vídeo 360 montada sob o palco com grid de iluminação azul." src="imagens_extraidas/imagem_pag_4_2.jpeg"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
+                <h4 class="font-headline-md text-headline-md text-white text-[20px]">Audiovisuais</h4>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Seção de Pacotes -->
+<section class="py-stack-lg bg-surface-container-lowest" id="galeria">
+    <div class="container mx-auto px-gutter text-center mb-stack-lg">
+        <h2 class="font-headline-lg text-headline-lg text-white">Nossos <span class="text-primary-container">Pacotes</span></h2>
+        <p class="font-body-md text-on-surface-variant mt-2">Escolha a duração ideal para o seu evento. Todos os pacotes incluem vídeos ilimitados!</p>
+    </div>
+    <div class="container mx-auto px-gutter grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Pacote 1 -->
+        <div class="glass-card p-8 rounded-3xl text-center flex flex-col justify-between border-white/5 hover:border-primary/30 transition-all group">
+            <div>
+                <h3 class="font-headline-md text-headline-md text-white mb-2">Pacote 1</h3>
+                <p class="text-primary font-bold text-3xl my-6">R$ 500</p>
+                <ul class="text-on-surface-variant space-y-3 font-body-md text-left mb-8">
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-xl">check</span> 2 Horas de evento</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-xl">check</span> Vídeos ilimitados</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-xl">check</span> Compartilhamento por QR Code</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-xl">check</span> Iluminação LED inclusa</li>
+                </ul>
+            </div>
+            <a href="https://wa.me/5521968999099?text=Olá,%20gostaria%20de%20reservar%20o%20Pacote%201%20de%202h." target="_blank" class="w-full bg-transparent border border-primary text-primary hover:bg-primary hover:text-on-primary py-3 rounded-full font-label-md transition-all btn-active text-center">Contratar</a>
+        </div>
+        <!-- Pacote 2 (Destaque) -->
+        <div class="glass-card p-8 rounded-3xl text-center flex flex-col justify-between border-primary/50 relative overflow-hidden bg-primary/5 hover:scale-105 transition-all shadow-[0_0_30px_rgba(212,175,55,0.15)] group">
+            <div class="absolute top-0 right-0 bg-primary text-on-primary font-label-sm px-4 py-1 rounded-bl-2xl">Popular</div>
+            <div>
+                <h3 class="font-headline-md text-headline-md text-white mb-2">Pacote 2</h3>
+                <p class="text-primary font-bold text-3xl my-6">R$ 750</p>
+                <ul class="text-on-surface-variant space-y-3 font-body-md text-left mb-8">
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-xl">check</span> 3 Horas de evento</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-xl">check</span> Vídeos ilimitados</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-xl">check</span> Compartilhamento por QR Code</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-xl">check</span> Cenografia com bastões de LED</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-xl">check</span> Monitores no local</li>
+                </ul>
+            </div>
+            <a href="https://wa.me/5521968999099?text=Olá,%20gostaria%20de%20reservar%20o%20Pacote%202%20de%203h." target="_blank" class="w-full bg-primary text-on-primary py-3 rounded-full font-label-md transition-all glow-gold btn-active text-center">Contratar</a>
+        </div>
+        <!-- Pacote 3 -->
+        <div class="glass-card p-8 rounded-3xl text-center flex flex-col justify-between border-white/5 hover:border-primary/30 transition-all group">
+            <div>
+                <h3 class="font-headline-md text-headline-md text-white mb-2">Pacote 3</h3>
+                <p class="text-primary font-bold text-3xl my-6">R$ 1.000</p>
+                <ul class="text-on-surface-variant space-y-3 font-body-md text-left mb-8">
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-xl">check</span> 4 Horas de evento</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-xl">check</span> Vídeos ilimitados</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-xl">check</span> Compartilhamento por QR Code</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-xl">check</span> Cenografia completa de LED</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-xl">check</span> Suporte total de monitores</li>
+                </ul>
+            </div>
+            <a href="https://wa.me/5521968999099?text=Olá,%20gostaria%20de%20reservar%20o%20Pacote%203%20de%204h." target="_blank" class="w-full bg-transparent border border-primary text-primary hover:bg-primary hover:text-on-primary py-3 rounded-full font-label-md transition-all btn-active text-center">Contratar</a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Final Section -->
+<section class="py-stack-lg relative overflow-hidden" id="contato">
+    <div class="container mx-auto px-gutter relative z-10 text-center">
+        <div class="max-w-3xl mx-auto glass-card p-12 rounded-[40px] border-primary-container/20">
+            <h2 class="font-headline-xl text-headline-xl mb-stack-sm text-white">Torne seu evento <span class="text-primary text-glow">inesquecível.</span></h2>
+            <p class="font-body-lg text-body-lg text-on-surface-variant mb-stack-lg">
+                Fale com a gente para levar a tecnologia D-PLAY 360 para o seu grande dia. Entre em contato e consulte nossa agenda exclusiva.
+            </p>
+            <div class="flex flex-col items-center gap-6">
+                <a class="bg-primary text-on-primary px-12 py-5 rounded-full font-headline-md text-headline-md flex items-center gap-3 hover:scale-105 transition-all glow-gold btn-active" href="https://wa.me/5521968999099" target="_blank">
+                    <span class="material-symbols-outlined">chat</span>
+                    Agendar via WhatsApp
+                </a>
+                <div class="font-label-md text-primary tracking-widest uppercase mt-4">
+                    RIO DE JANEIRO - EXCLUSIVE SERVICE
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="w-full py-stack-md px-gutter flex flex-col md:flex-row justify-between items-center gap-stack-sm bg-surface-container-lowest border-t border-white/5">
+    <div class="font-headline-sm text-headline-sm font-bold text-surface-tint">
+        D-PLAY 360
+    </div>
+    <div class="flex flex-wrap justify-center gap-6">
+        <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Instagram</a>
+        <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">LinkedIn</a>
+        <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">WhatsApp</a>
+        <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Termos de Uso</a>
+    </div>
+    <div class="font-label-sm text-label-sm text-on-surface-variant text-center md:text-right">
+        © 2024 D-PLAY 360. Todos os direitos reservados.<br/>
+        Rio de Janeiro: (21) 96899-9099
+    </div>
+</footer>
+
+<!-- Back to top micro-interaction script -->
+<script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('opacity-100');
+                entry.target.classList.remove('opacity-0', 'translate-y-10');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.glass-card').forEach(card => {
+        card.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-700');
+        observer.observe(card);
+    });
+</script>
+</body>
+</html>
